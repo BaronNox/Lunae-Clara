@@ -1,0 +1,14 @@
+[
+{
+  "modid": "lunaeclara",
+  "name": "Lunae Clara",
+  "description": "WIP",
+  "version": "0.0.0#000",
+  "mcversion": "1.11.2",
+  "logoFile": "assets/examplemod/textures/logo.png",
+  "url": "WIP",
+  "updateJSON": "minecraftforge.net/versions.json",
+  "authorList": ["BaronNox"],
+  "credits": "BaronNox"
+}
+]

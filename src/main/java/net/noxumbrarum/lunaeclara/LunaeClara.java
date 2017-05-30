@@ -1,6 +1,5 @@
 package net.noxumbrarum.lunaeclara;
 
-import net.minecraftforge.event.terraingen.WorldTypeEvent.InitBiomeGens;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;

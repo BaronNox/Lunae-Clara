@@ -1,6 +1,7 @@
 package net.noxumbrarum.lunaeclara.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -21,6 +22,7 @@ public class BlockGeneric extends Block
 		registryName = builder.registryName;
 		setRegistryName(builder.registryName);
 		setUnlocalizedName(getRegistryName().toString());
+		setSoundType(builder.getSoundType());
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		
@@ -38,6 +40,7 @@ public class BlockGeneric extends Block
 		private Material blockMaterial = null;
 		private String registryName = null;
 		private CreativeTabs creativeTabs = null;
+		private SoundType soundType = null;
 		
 		public Builder(String blockRegistryName, Material blockMaterial) {
 			this.registryName = blockRegistryName;
@@ -47,6 +50,16 @@ public class BlockGeneric extends Block
 		public Builder setCreativeTab(CreativeTabs creativeTabs) {
 			this.creativeTabs = creativeTabs;
 			return this;
+		}
+		
+		public Builder setSoundType(SoundType soundType) {
+			this.soundType = soundType;
+			return this;
+		}
+		
+		public SoundType getSoundType()
+		{
+			return this.soundType.equals(null) ? SoundType.METAL : this.soundType;
 		}
 		
 		public BlockGeneric build() {

@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.noxumbrarum.lunaeclara.blocks.json.CreateJson;
+import net.noxumbrarum.lunaeclara.blocks.json.BlockJsonGenerator;
 
 public class FirstBlock extends Block
 {
@@ -15,6 +15,6 @@ public class FirstBlock extends Block
 		setUnlocalizedName(getRegistryName().toString());
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
-		CreateJson.createJsonBlock("first_block");
+		BlockJsonGenerator.createJsons("first_block");
 	}
 }

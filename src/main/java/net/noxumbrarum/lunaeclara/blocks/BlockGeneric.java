@@ -59,7 +59,7 @@ public class BlockGeneric extends Block
 		
 		public SoundType getSoundType()
 		{
-			return this.soundType.equals(null) ? SoundType.METAL : this.soundType;
+			return this.soundType == null ? SoundType.METAL : this.soundType;
 		}
 		
 		public BlockGeneric build() {

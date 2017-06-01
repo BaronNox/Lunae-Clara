@@ -1,8 +1,11 @@
 package net.noxumbrarum.lunaeclara.blocks;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -13,26 +16,42 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.noxumbrarum.lunaeclara.References;
 import net.noxumbrarum.lunaeclara.blocks.json.BlockJsonGenerator;
+import net.noxumbrarum.lunaeclara.util.Pair;
 
 public class BlockGeneric extends Block
 {
 	private String registryName;
+	private Pair<Block, Integer> dropBlockQuantity;
 	
 	private BlockGeneric(Builder builder)
 	{
-		super(builder.blockMaterial);
+		super(builder.getBlockMaterial());
 		registryName = builder.registryName;
 		setRegistryName(builder.registryName);
 		setUnlocalizedName(getRegistryName().toString());
 		setSoundType(builder.getSoundType());
 		setHardness(builder.getHardness());
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		
 		setCreativeTab(builder.creativeTabs);
 		
+		dropBlockQuantity = builder.getBlockDropQuantity();
+		
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		
+		
 		devMode();
 	}
+	
+	//TODO: Add quantity functionality.
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		if(dropBlockQuantity == null || dropBlockQuantity.getFirst() == null) {
+			return Item.getItemFromBlock(this);
+		}
+		return Item.getItemFromBlock(dropBlockQuantity.getFirst());
+	}
+	
 	
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
@@ -47,9 +66,21 @@ public class BlockGeneric extends Block
 		private SoundType soundType = null;
 		private float hardness = 0.0f;
 		
+		private Pair<Block, Integer> blockDropQuantity = null;
+		
 		public Builder(String blockRegistryName, Material blockMaterial) {
 			this.registryName = blockRegistryName;
 			this.blockMaterial = blockMaterial;
+		}
+		
+		public Builder setBlockDropQuantity(Pair<Block, Integer> blockDropQuantity) {
+			this.blockDropQuantity = blockDropQuantity;
+			return this;
+		}
+		
+		public Builder setBlockDropQuantity(Block blockToDrop, int blockDropQuantity) {
+			this.setBlockDropQuantity(new Pair<Block, Integer>(blockToDrop, blockDropQuantity));
+			return this;
 		}
 		
 		public Builder setCreativeTab(CreativeTabs creativeTabs) {
@@ -59,6 +90,11 @@ public class BlockGeneric extends Block
 		
 		public Builder setSoundType(SoundType soundType) {
 			this.soundType = soundType;
+			return this;
+		}
+		
+		public Builder setBlockMaterial(Material blockMaterial) {
+			this.blockMaterial = blockMaterial;
 			return this;
 		}
 		
@@ -79,10 +115,25 @@ public class BlockGeneric extends Block
 			return this.soundType == null ? SoundType.METAL : this.soundType;
 		}
 		
+		public Material getBlockMaterial() {
+			return this.blockMaterial == null ? Material.CLOTH : this.blockMaterial;
+		}
 		
 		public float getHardness()
 		{
 			return hardness;
+		}
+		
+		public Block getBlockToDrop() {
+			return this.blockDropQuantity.getFirst();
+		}
+		
+		public int getDropQuantity() {
+			return this.blockDropQuantity.getSecond();
+		}
+		
+		public Pair<Block, Integer> getBlockDropQuantity() {
+			return this.blockDropQuantity;
 		}
 		
 		public BlockGeneric build() {

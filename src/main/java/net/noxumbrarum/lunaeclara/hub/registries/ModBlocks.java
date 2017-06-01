@@ -14,6 +14,6 @@ public class ModBlocks
 	 */
 	public static void init() {
 //		firstBlock = new FirstBlock();
-		secondBlock = new BlockGeneric.Builder("first_block", Material.IRON).setHardness(3f).build();
+		secondBlock = new BlockGeneric.Builder("first_block", Material.IRON).setHardness(0.3f).build();
 	}
 }

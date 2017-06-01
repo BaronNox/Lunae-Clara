@@ -9,8 +9,11 @@ public class ModBlocks
 //	public static FirstBlock firstBlock;
 	public static BlockGeneric secondBlock;
 	
+	/**
+	 * Initializes the mods by initializing the blocks.
+	 */
 	public static void init() {
 //		firstBlock = new FirstBlock();
-		secondBlock = new BlockGeneric.Builder("first_block", Material.IRON).build();
+		secondBlock = new BlockGeneric.Builder("first_block", Material.IRON).setHardness(3f).build();
 	}
 }

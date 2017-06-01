@@ -11,6 +11,8 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.noxumbrarum.lunaeclara.References;
+import net.noxumbrarum.lunaeclara.blocks.json.BlockJsonGenerator;
 
 public class BlockGeneric extends Block
 {
@@ -23,15 +25,17 @@ public class BlockGeneric extends Block
 		setRegistryName(builder.registryName);
 		setUnlocalizedName(getRegistryName().toString());
 		setSoundType(builder.getSoundType());
+		setHardness(builder.getHardness());
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		
 		setCreativeTab(builder.creativeTabs);
+		
+		devMode();
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
-		
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, 
 				new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
@@ -41,6 +45,7 @@ public class BlockGeneric extends Block
 		private String registryName = null;
 		private CreativeTabs creativeTabs = null;
 		private SoundType soundType = null;
+		private float hardness = 0.0f;
 		
 		public Builder(String blockRegistryName, Material blockMaterial) {
 			this.registryName = blockRegistryName;
@@ -57,13 +62,37 @@ public class BlockGeneric extends Block
 			return this;
 		}
 		
+		/**
+		 * Set the hardness of a block. 1.0f == stone, 50.0f == obsidian
+		 * By default depends on material.
+		 * @param hardness
+		 * @return this for chaining.
+		 */
+		public Builder setHardness(float hardness)
+		{
+			this.hardness = hardness;
+			return this;
+		}
+		
 		public SoundType getSoundType()
 		{
 			return this.soundType == null ? SoundType.METAL : this.soundType;
 		}
 		
+		
+		public float getHardness()
+		{
+			return hardness;
+		}
+		
 		public BlockGeneric build() {
 			return new BlockGeneric(this);
+		}
+	}
+	
+	protected void devMode() {
+		if(References.DEV) {
+			BlockJsonGenerator.createJsons(registryName);
 		}
 	}
 

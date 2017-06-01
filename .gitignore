@@ -1,0 +1,10 @@
+/.gradle/
+/bin/
+
+\.project
+
+\.classpath
+
+/build/
+/run/
+\.settings/org\.eclipse\.buildship\.core\.prefs

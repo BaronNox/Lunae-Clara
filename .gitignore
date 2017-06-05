@@ -8,3 +8,4 @@
 /build/
 /run/
 \.settings/org\.eclipse\.buildship\.core\.prefs
+/.settings

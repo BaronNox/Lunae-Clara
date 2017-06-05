@@ -8,12 +8,11 @@ import net.noxumbrarum.lunaeclara.misc.creativetabs.CreativeTabBlocks;
 
 public class CommonProxy implements IProxyInits
 {
-	private CreativeTabBlocks creativeTabModBlocks;
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		creativeTabModBlocks = CreativeTabBlocks.getInstance();
+		CreativeTabBlocks creativeTabModBlocks = CreativeTabBlocks.getInstance();
 		
 		ModBlocks.init();
 	}

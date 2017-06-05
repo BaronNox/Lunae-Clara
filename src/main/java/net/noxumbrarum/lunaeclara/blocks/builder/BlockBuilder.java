@@ -9,7 +9,7 @@ import net.noxumbrarum.lunaeclara.util.Pair;
 
 public class BlockBuilder
 {
-	private BlockType blockType;
+	private BlockType blockType = BlockType.SOLID;
 	private Material blockMaterial;
 	private String registryName;
 	private CreativeTabs creativeTabs;
@@ -188,6 +188,4 @@ public class BlockBuilder
 		
 		return BlockGeneric.CREATE(this);
 	}
-
-	
 }

@@ -73,26 +73,52 @@ public class BlockGeneric extends Block
 			this.blockMaterial = blockMaterial;
 		}
 		
+		/**
+		 * Which block/item this block should drop and how many.
+		 * @param blockDropQuantity Which block and in which quantity it should drop.
+		 * @return
+		 */
 		public Builder setBlockDropQuantity(Pair<Block, Integer> blockDropQuantity) {
 			this.blockDropQuantity = blockDropQuantity;
 			return this;
 		}
 		
+		/**
+		 * Which block/item this block should drop and how many.
+		 * @param blockToDrop Block to drop.
+		 * @param blockDropQuantity Quantity to drop.
+		 * @return this for chaining.
+		 */
 		public Builder setBlockDropQuantity(Block blockToDrop, int blockDropQuantity) {
 			this.setBlockDropQuantity(new Pair<Block, Integer>(blockToDrop, blockDropQuantity));
 			return this;
 		}
 		
+		/**
+		 * Sets the creativeTab this block shall appear in
+		 * @param creativeTabs
+		 * @return this for chaining.
+		 */
 		public Builder setCreativeTab(CreativeTabs creativeTabs) {
 			this.creativeTabs = creativeTabs;
 			return this;
 		}
 		
+		/**
+		 * Set SoundType (footstep sounds) of this block.
+		 * @param soundType
+		 * @return this for chaining.
+		 */
 		public Builder setSoundType(SoundType soundType) {
 			this.soundType = soundType;
 			return this;
 		}
 		
+		/**
+		 * Set the material this block is made of.
+		 * @param blockMaterial
+		 * @return this for chaining.
+		 */
 		public Builder setBlockMaterial(Material blockMaterial) {
 			this.blockMaterial = blockMaterial;
 			return this;
@@ -110,32 +136,60 @@ public class BlockGeneric extends Block
 			return this;
 		}
 		
+		/**
+		 * Which sound is being played when walking over this block.
+		 * @return SoundType
+		 */
 		public SoundType getSoundType()
 		{
 			return this.soundType == null ? SoundType.METAL : this.soundType;
 		}
 		
+		/**
+		 * Which material is this block made of.
+		 * @return Material
+		 */
 		public Material getBlockMaterial() {
 			return this.blockMaterial == null ? Material.CLOTH : this.blockMaterial;
 		}
 		
+		/**
+		 * How hard (time to mine) is this block.
+		 * @return float
+		 */
 		public float getHardness()
 		{
 			return hardness;
 		}
 		
+		/**
+		 * Which block/item is being dropped by this block.
+		 * @return Block
+		 */
 		public Block getBlockToDrop() {
 			return this.blockDropQuantity.getFirst();
 		}
 		
+		/**
+		 * How many drops are being dropped by this block.
+		 * @return Integer
+		 */
 		public int getDropQuantity() {
 			return this.blockDropQuantity.getSecond();
 		}
 		
+		/**
+		 * Which block/item and how many are being dropped by this block.
+		 * @return Pair<Block, Integer>
+		 */
 		public Pair<Block, Integer> getBlockDropQuantity() {
 			return this.blockDropQuantity;
 		}
 		
+		/**
+		 * Returns a new instance of BlockGeneric with settings of BlockGeneric.Builder.
+		 * @return BlockGeneric
+		 */
 		public BlockGeneric build() {
 			return new BlockGeneric(this);
 		}

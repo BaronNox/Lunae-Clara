@@ -26,7 +26,7 @@ public class ItemDev extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		if(worldIn.isRemote) {
-			playerIn.openGui(LunaeClara.instance, GuiID.ITEM_WIKI_BOOK.getId(), worldIn, (int)playerIn.posX, (int)playerIn.posY, (int)playerIn.posZ);
+			playerIn.openGui(LunaeClara.instance, GuiID.WIKI.getId(), worldIn, (int)playerIn.posX, (int)playerIn.posY, (int)playerIn.posZ);
 			System.out.println("OPENED GUI");
 			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 		}

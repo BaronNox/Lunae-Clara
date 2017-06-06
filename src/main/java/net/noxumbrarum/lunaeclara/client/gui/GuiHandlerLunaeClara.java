@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.noxumbrarum.lunaeclara.client.gui.screens.BaseScreen;
+import net.noxumbrarum.lunaeclara.client.gui.screens.wiki.Page;
 
 /*
  * registered in init of commonProxy
@@ -17,37 +18,35 @@ public class GuiHandlerLunaeClara implements IGuiHandler {
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		System.out.println(ID + " called");
-//		getScreen(ID);
-		if(ID == 1) { return new BaseScreen();}
+		// if(ID == 1) { return new BaseScreen();}
+		Class<?> screenClass = getScreenByID(ID);
+		if(screenClass != null) {
+			try {
+				return screenClass.newInstance();
+			} catch (InstantiationException | IllegalAccessException e) {
+				e.printStackTrace(); //TODO: add LOGGER
+			}
+		}
 		return null;
 	}
 
-	private BaseScreen getScreen(int id) {
-		System.out.println("inside getScreen");
+	public Class<?> getScreenByID(int ID) {
 		for (GuiID guiID : GuiID.values()) {
-			System.out.println("inside for each");
-			if (guiID.getId() == id) {
-				System.out.println("ID found");
-				try {
-					System.out.println("CREATED");
-					return guiID.getScreenClass().newInstance();
-				} catch (InstantiationException | IllegalAccessException e) {
-					e.printStackTrace();
-				}
+			if (ID == guiID.getId()) {
+				return guiID.getScreen();
 			}
 		}
-
 		return null;
 	}
 
 	public static enum GuiID {
-		ITEM_WIKI_BOOK(1, BaseScreen.class);
+		IEST(0, BaseScreen.class),
+		WIKI(1, Page.class);
 
 		private final int id;
-		private final Class<BaseScreen> guiScreen;
+		private final Class<?> guiScreen;
 
-		private GuiID(int id, Class<BaseScreen> guiScreen) {
+		private GuiID(int id, Class<?> guiScreen) {
 			this.id = id;
 			this.guiScreen = guiScreen;
 		}
@@ -55,9 +54,10 @@ public class GuiHandlerLunaeClara implements IGuiHandler {
 		public int getId() {
 			return id;
 		}
-		
-		public Class<BaseScreen> getScreenClass() {
+
+		protected Class<?> getScreen() {
 			return guiScreen;
 		}
+
 	}
 }
